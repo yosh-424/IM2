@@ -20,7 +20,11 @@ import { createSearchRoutes } from './routes/searchRoutes.js';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
+// Load environment variables
 dotenv.config({ path: path.join(__dirname, '../.env') });
+if (!process.env.MONGODB_URI) {
+  dotenv.config({ path: path.join(__dirname, '../.env.local') });
+}
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -110,10 +114,13 @@ const startServer = async () => {
     );
     console.log('✓ Database connection established successfully');
 
-    app.listen(PORT, () => {
-      console.log(`✓ Server is running on http://localhost:${PORT}`);
-      console.log(`✓ Environment: ${process.env.NODE_ENV || 'development'}`);
-    });
+    // Only listen on port if not in serverless environment (Vercel)
+    if (!process.env.VERCEL) {
+      app.listen(PORT, () => {
+        console.log(`✓ Server is running on http://localhost:${PORT}`);
+        console.log(`✓ Environment: ${process.env.NODE_ENV || 'development'}`);
+      });
+    }
   } catch (error) {
     console.error('✗ Failed to start server:', error);
     process.exit(1);
