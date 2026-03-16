@@ -87,7 +87,15 @@ export const createStatisticsRoutes = (models) => {
       return res.status(500).json({
         success: false,
         message: error.message,
-      });Start = new Date(now.getFullYear(), now.getMonth(), 1);
+      });
+    }
+  });
+
+  // Monthly visitor count
+  router.get('/monthly', async (req, res) => {
+    try {
+      const now = new Date();
+      const monthStart = new Date(now.getFullYear(), now.getMonth(), 1);
       monthStart.setHours(0, 0, 0, 0);
       
       const monthEnd = new Date(now.getFullYear(), now.getMonth() + 1, 1);
@@ -97,15 +105,7 @@ export const createStatisticsRoutes = (models) => {
           $match: {
             checkInTime: { $gte: monthStart, $lt: monthEnd },
           },
-       
-  router.get('/monthly', async (req, res) => {
-    try {
-      const now = new Date();
-      const month = now.getMonth() + 1;
-      const year = now.getFullYear();
-
-      const result = await VisitLog.aggregate([
-        { $match: { month: month, year: year } },
+        },
         { $group: { _id: null, count: { $addToSet: '$visitorId' } } },
         { $project: { count: { $size: '$count' } } },
       ]);
