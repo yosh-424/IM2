@@ -252,7 +252,7 @@ const Login = ({ onLoginSuccess }) => {
               className="login-button"
               disabled={loading}
             >
-              {loading ? 'Checking in...' : 'Check In'}
+              {loading ? 'Logging in...' : 'Log in'}
             </button>
           </form>
         )}
