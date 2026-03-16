@@ -12,10 +12,17 @@ export const createStatisticsRoutes = (models) => {
   // Daily visitor count
   router.get('/daily', async (req, res) => {
     try {
-      const today = new Date().toISOString().split('T')[0];
-      
+      const today = new Date();
+      today.setHours(0, 0, 0, 0);
+      const tomorrow = new Date(today);
+      tomorrow.setDate(tomorrow.getDate() + 1);
+
       const result = await VisitLog.aggregate([
-        { $match: { date: today } },
+        {
+          $match: {
+            checkInTime: { $gte: today, $lt: tomorrow },
+          },
+        },
         { $group: { _id: null, count: { $addToSet: '$visitorId' } } },
         { $project: { count: { $size: '$count' } } },
       ]);
@@ -40,11 +47,19 @@ export const createStatisticsRoutes = (models) => {
   router.get('/weekly', async (req, res) => {
     try {
       const now = new Date();
-      const weekNumber = getWeekNumber(now);
-      const year = now.getFullYear();
+      const weekStart = new Date(now);
+      weekStart.setDate(now.getDate() - now.getDay()); // Start from Sunday
+      weekStart.setHours(0, 0, 0, 0);
+      
+      const weekEnd = new Date(weekStart);
+      weekEnd.setDate(weekStart.getDate() + 7);
 
       const result = await VisitLog.aggregate([
-        { $match: { week: weekNumber, year: year } },
+        {
+          $match: {
+            checkInTime: { $gte: weekStart, $lt: weekEnd },
+          },
+        },
         { $group: { _id: null, count: { $addToSet: '$visitorId' } } },
         { $project: { count: { $size: '$count' } } },
       ]);
@@ -61,11 +76,17 @@ export const createStatisticsRoutes = (models) => {
       return res.status(500).json({
         success: false,
         message: error.message,
-      });
-    }
-  });
+      });Start = new Date(now.getFullYear(), now.getMonth(), 1);
+      monthStart.setHours(0, 0, 0, 0);
+      
+      const monthEnd = new Date(now.getFullYear(), now.getMonth() + 1, 1);
 
-  // Monthly visitor count
+      const result = await VisitLog.aggregate([
+        {
+          $match: {
+            checkInTime: { $gte: monthStart, $lt: monthEnd },
+          },
+       
   router.get('/monthly', async (req, res) => {
     try {
       const now = new Date();
