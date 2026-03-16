@@ -5,6 +5,17 @@
 
 import express from 'express';
 
+// Helper function to get week number (consistent across all routes)
+const getWeekNumber = (date) => {
+  const d = new Date(date);
+  d.setHours(0, 0, 0, 0);
+  d.setDate(d.getDate() - d.getDay());
+  const yearStart = new Date(d.getFullYear(), 0, 1);
+  const diff = d - yearStart;
+  const oneWeek = 1000 * 60 * 60 * 24 * 7;
+  return Math.floor(diff / oneWeek) + 1;
+};
+
 export const createStatisticsRoutes = (models) => {
   const router = express.Router();
   const { VisitLog, Visitor, College } = models;
@@ -808,10 +819,3 @@ export const createStatisticsRoutes = (models) => {
 
   return router;
 };
-
-// Helper function to get week number
-function getWeekNumber(date) {
-  const firstDayOfYear = new Date(date.getFullYear(), 0, 1);
-  const pastDaysOfYear = (date - firstDayOfYear) / 86400000;
-  return Math.ceil((pastDaysOfYear + firstDayOfYear.getDay() + 1) / 7);
-}
