@@ -24,7 +24,7 @@ A web application to track and manage library visitors, monitor visitor statisti
 
 ## Default Admin Credentials (For Testing Purposes)
 
-- Admin Email: `jcesperanza@neu.edu.ph` or `joshuaandre.tindoy@neu.edu.ph`
+- Admin Email: `<Professor Esperanza's Instituional Email>` or `<Joshua Tindoy's Institutional Email>`
 - Admin Password: `0000`
 
 ## Security
