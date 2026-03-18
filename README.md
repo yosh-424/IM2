@@ -22,7 +22,7 @@ A web application to track and manage library visitors, monitor visitor statisti
 - Production Deployment: https://im-2-tau.vercel.app
 - Development: http://localhost:5000
 
-# Default Admin Credentials #(For Testing Purposes)
+## Default Admin Credentials (For Testing Purposes)
 
 - Admin Email: `jcesperanza@neu.edu.ph` or `joshuaandre.tindoy@neu.edu.ph`
 - Admin Password: `0000`
