@@ -1,4 +1,4 @@
-NEU Library Visitor Management System
+NEU Library Visitor Log 
 
 A web application to track and manage library visitors, monitor visitor statistics, and manage access control.
 
