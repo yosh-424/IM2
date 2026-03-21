@@ -142,7 +142,7 @@ const UserDashboard = ({ user, onLogout, onSwitchRole }) => {
             <ul>
               <li>✓ Access your visit history</li>
               <li>✓ View library statistics</li>
-              <li>✓ Check in and out efficiently</li>
+              <li>✓ Log in and out efficiently</li>
               <li>✓ See your profile information</li>
             </ul>
           </div>

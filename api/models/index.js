@@ -39,6 +39,14 @@ const visitorSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    studentNumber: {
+      type: String,
+      default: null,
+    },
+    profileComplete: {
+      type: Boolean,
+      default: false,
+    },
     collegeId: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'College',
@@ -87,6 +95,10 @@ const visitLogSchema = new mongoose.Schema(
       type: String,
       required: true,
       comment: 'Visitor email',
+    },
+    studentNumber: {
+      type: String,
+      default: null,
     },
     firstName: {
       type: String,
@@ -141,11 +153,47 @@ const visitLogSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
+// Admin Email Schema - stores authorized admin emails
+const adminEmailSchema = new mongoose.Schema(
+  {
+    email: {
+      type: String,
+      unique: true,
+      required: true,
+      lowercase: true,
+    },
+    addedBy: {
+      type: String,
+      required: true,
+    },
+  },
+  { timestamps: true }
+);
+
+// Staff Email Schema - stores staff/faculty emails that skip profile setup
+const staffEmailSchema = new mongoose.Schema(
+  {
+    email: {
+      type: String,
+      unique: true,
+      required: true,
+      lowercase: true,
+    },
+    addedBy: {
+      type: String,
+      required: true,
+    },
+  },
+  { timestamps: true }
+);
+
 // Create models
 export const College = mongoose.model('College', collegeSchema);
 export const Visitor = mongoose.model('Visitor', visitorSchema);
 export const VisitLog = mongoose.model('VisitLog', visitLogSchema);
+export const AdminEmail = mongoose.model('AdminEmail', adminEmailSchema);
+export const StaffEmail = mongoose.model('StaffEmail', staffEmailSchema);
 
 export const defineModels = () => {
-  return { College, Visitor, VisitLog };
+  return { College, Visitor, VisitLog, AdminEmail, StaffEmail };
 };

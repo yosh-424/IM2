@@ -1,5 +1,5 @@
 /* App Global Styles */
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap');
 
 * {
   margin: 0;
@@ -15,25 +15,26 @@ body {
   font-family: 'Inter', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  color: #1a1a1a;
+  color: #ffffff;
+  background: #0c1220;
 }
 
 .app {
   width: 100%;
   min-height: 100vh;
-  background: #fafafa;
+  background: #0c1220;
 }
 
 .app.loading {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(135deg, #1e3a5f 0%, #2c5aa0 100%);
+  background: #0c1220;
 }
 
 .loading-spinner {
-  font-size: 24px;
-  color: white;
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.4);
   text-align: center;
 }
 
@@ -65,12 +66,12 @@ body {
 }
 
 .btn-secondary {
-  background: #f0f0f0;
-  color: #333;
+  background: rgba(255, 255, 255, 0.06);
+  color: rgba(255, 255, 255, 0.6);
 }
 
 .btn-secondary:hover {
-  background: #e0e0e0;
+  background: rgba(255, 255, 255, 0.1);
 }
 
 /* Loading Animation */
@@ -90,6 +91,43 @@ body {
   }
   100% {
     transform: rotate(360deg);
+  }
+}
+
+/* Page Transitions */
+.page-transition {
+  animation-duration: 0.5s;
+  animation-timing-function: ease;
+  animation-fill-mode: both;
+}
+
+.page-transition.fade-in {
+  animation-name: fadeIn;
+}
+
+.page-transition.fade-out {
+  animation-name: fadeOut;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-12px);
   }
 }
 

@@ -1,239 +1,150 @@
 /**
- * Login Component Styles - Black & White with Blue Accents
+ * Login — Minimalist Dark
  */
 
 .login-container {
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 100vh;
-  background: #f5f5f5;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica',
-    'Arial', sans-serif;
+  width: 100%;
+  padding: 20px;
 }
 
 .login-box {
-  background: #ffffff;
-  border-radius: 12px;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
-  padding: 40px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  border-radius: 16px;
+  padding: 44px 36px;
   width: 100%;
   max-width: 400px;
-  animation: slideIn 0.3s ease-out;
-  border: 3px solid #000000;
+  position: relative;
+  backdrop-filter: blur(12px);
 }
 
-@keyframes slideIn {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+.back-btn {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  background: none;
+  border: none;
+  font-size: 13px;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.4);
+  cursor: pointer;
+  padding: 4px 8px;
+  transition: color 0.2s;
+}
+
+.back-btn:hover {
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.login-info {
+  text-align: center;
+  color: rgba(255, 255, 255, 0.4);
+  font-size: 13px;
+  margin: 0;
+  font-weight: 400;
 }
 
 .login-header {
   text-align: center;
-  margin-bottom: 25px;
+  margin-bottom: 28px;
 }
 
 .login-header h1 {
-  font-size: 32px;
-  margin: 0 0 8px 0;
-  color: #2196F3;
-  font-weight: 700;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 26px;
+  margin: 0 0 6px 0;
+  color: #ffffff;
+  font-weight: 600;
+  letter-spacing: 1px;
 }
 
 .login-header p {
-  font-size: 14px;
-  color: #666;
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.35);
   margin: 0;
-  font-weight: 500;
+  font-weight: 400;
 }
 
 /* Mode Toggle */
 .mode-toggle {
   display: flex;
-  gap: 10px;
-  margin-bottom: 25px;
-  background: #ffffff;
-  border-radius: 8px;
-  padding: 4px;
-  border: 2px solid #000000;
+  gap: 6px;
+  margin-bottom: 24px;
+  background: rgba(255, 255, 255, 0.04);
+  border-radius: 10px;
+  padding: 3px;
 }
 
 .toggle-btn {
   flex: 1;
-  padding: 10px 15px;
+  padding: 9px 14px;
   border: none;
   background: transparent;
-  border-radius: 6px;
+  border-radius: 8px;
   font-size: 13px;
-  font-weight: 600;
+  font-weight: 500;
   cursor: pointer;
-  transition: all 0.3s;
-  color: #333;
+  transition: all 0.2s;
+  color: rgba(255, 255, 255, 0.4);
 }
 
 .toggle-btn.active {
-  background: #2196F3;
-  color: white;
-  box-shadow: 0 2px 8px rgba(33, 150, 243, 0.3);
+  background: rgba(255, 255, 255, 0.1);
+  color: #ffffff;
 }
 
 .toggle-btn:hover:not(.active) {
-  background: rgba(33, 150, 243, 0.1);
-  color: #2196F3;
+  color: rgba(255, 255, 255, 0.6);
 }
 
 .login-form {
   display: flex;
   flex-direction: column;
-  gap: 20px;
-}
-
-.form-group {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
-.form-group label {
-  font-size: 14px;
-  font-weight: 600;
-  color: #1a1a1a;
-}
-
-.login-input {
-  padding: 12px;
-  border: 2px solid #000000;
-  border-radius: 6px;
-  font-size: 14px;
-  transition: border-color 0.3s, box-shadow 0.3s;
-  background-color: white;
-  color: #1a1a1a;
-}
-
-.login-input:focus {
-  outline: none;
-  border-color: #2196F3;
-  box-shadow: 0 0 0 3px rgba(33, 150, 243, 0.1);
-}
-
-.login-input:disabled {
-  background-color: #f5f5f5;
-  cursor: not-allowed;
-  color: #999;
-}
-
-.email-hint {
-  font-size: 12px;
-  color: #999;
-  margin: 4px 0 0 0;
-  font-style: italic;
+  gap: 18px;
 }
 
 .alert {
-  padding: 12px;
-  border-radius: 6px;
-  font-size: 14px;
+  padding: 10px 14px;
+  border-radius: 8px;
+  font-size: 13px;
   text-align: center;
-  animation: slideDown 0.3s ease-out;
   font-weight: 500;
 }
 
-@keyframes slideDown {
-  from {
-    opacity: 0;
-    transform: translateY(-10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
 .alert-error {
-  background-color: #ffebee;
-  color: #c62828;
-  border: 2px solid #ef5350;
+  background: rgba(239, 68, 68, 0.1);
+  color: #f87171;
+  border: 1px solid rgba(239, 68, 68, 0.2);
 }
 
 .alert-success {
-  background-color: #e8f5e9;
-  color: #2e7d32;
-  border: 2px solid #66bb6a;
+  background: rgba(34, 197, 94, 0.1);
+  color: #4ade80;
+  border: 1px solid rgba(34, 197, 94, 0.2);
 }
 
-.login-button {
-  padding: 12px;
-  background: #2196F3;
-  color: white;
-  border: none;
-  border-radius: 6px;
-  font-size: 16px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: transform 0.2s, box-shadow 0.2s, background-color 0.3s;
+/* Google Sign-In */
+.google-signin-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  margin-top: 4px;
 }
 
-.login-button:hover:not(:disabled) {
-  background: #1976d2;
-  transform: translateY(-2px);
-  box-shadow: 0 10px 20px rgba(33, 150, 243, 0.3);
+.google-btn-container {
+  display: flex;
+  justify-content: center;
+  width: 100%;
 }
 
-.login-button:disabled {
-  background: #bbb;
-  cursor: not-allowed;
-  opacity: 0.7;
-}
-
-.login-button:disabled {
-  opacity: 0.7;
-  cursor: not-allowed;
-}
-
-.login-footer {
-  margin-top: 30px;
-  padding-top: 20px;
-  border-top: 1px solid #e0e0e0;
+.loading-text {
   text-align: center;
-}
-
-.demo-info {
-  font-size: 12px;
-  color: #999;
-  margin: 0 0 8px 0;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-}
-
-.demo-email {
-  font-size: 14px;
-  font-weight: 600;
-  color: #667eea;
-  margin: 0 0 12px 0;
-  font-family: 'Monaco', 'Menlo', 'Courier', monospace;
-}
-
-.demo-password {
+  color: rgba(255, 255, 255, 0.45);
   font-size: 13px;
-  font-weight: 600;
-  color: #667eea;
-  margin: 0 0 12px 0;
-  font-family: 'Monaco', 'Menlo', 'Courier', monospace;
-  background: #f5f5f5;
-  padding: 8px 12px;
-  border-radius: 4px;
-  border-left: 3px solid #667eea;
-}
-
-.info-text {
-  font-size: 12px;
-  color: #999;
-  margin: 0;
-  line-height: 1.5;
+  font-weight: 500;
+  padding: 6px 0;
 }

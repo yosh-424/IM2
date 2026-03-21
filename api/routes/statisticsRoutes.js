@@ -759,40 +759,67 @@ export const createStatisticsRoutes = (models) => {
         if (collegeDoc) {
           matchStage.college = collegeDoc.name;
         } else {
-          // Fallback if no doc found but string exists
           matchStage.college = new RegExp(college, 'i');
         }
       }
 
-      console.log('--- ADMIN SEARCH DEBUG ---');
-      console.log('Filters Received:', { search, date, college });
-      console.log('Final Database Match Stage:', matchStage);
-
       // Get logs matching the filter
       let logs = await VisitLog.find(matchStage)
-        .populate('visitorId', 'email firstName lastName blocked')
+        .populate('visitorId', 'email firstName lastName studentNumber blocked')
         .sort({ checkInTime: -1 });
 
-      // Apply text search on the results... (rest of function)
+      // Smart search: match across all fields
       if (search) {
-        const searchLower = search.toLowerCase();
+        const searchLower = search.toLowerCase().trim();
+
+        // Build college abbreviation map for smart matching
+        const allColleges = await models.College.find({}).lean();
+        const matchedCollegeNames = new Set();
+        for (const c of allColleges) {
+          if (
+            c.code?.toLowerCase().includes(searchLower) ||
+            c.name?.toLowerCase().includes(searchLower)
+          ) {
+            matchedCollegeNames.add(c.name.toLowerCase());
+          }
+        }
+
         logs = logs.filter(log => {
           const visitor = log.visitorId;
           const email = visitor?.email?.toLowerCase() || '';
           const firstName = visitor?.firstName?.toLowerCase() || '';
           const lastName = visitor?.lastName?.toLowerCase() || '';
+          const fullName = `${firstName} ${lastName}`;
+          const studentNumber = (log.studentNumber || visitor?.studentNumber || '').toLowerCase();
           const collegeName = log.college?.toLowerCase() || '';
-          
-          return email.includes(searchLower) || 
-                 firstName.includes(searchLower) || 
-                 lastName.includes(searchLower) ||
-                 collegeName.includes(searchLower);
+          const reason = log.visitPurpose?.toLowerCase() || '';
+          const checkInStr = log.checkInTime
+            ? new Date(log.checkInTime).toLocaleString('en-US', {
+                month: 'short', day: 'numeric', year: 'numeric',
+                hour: '2-digit', minute: '2-digit', hour12: true,
+              }).toLowerCase()
+            : '';
+          const dateStr = log.date || '';
+
+          return (
+            email.includes(searchLower) ||
+            firstName.includes(searchLower) ||
+            lastName.includes(searchLower) ||
+            fullName.includes(searchLower) ||
+            studentNumber.includes(searchLower) ||
+            collegeName.includes(searchLower) ||
+            matchedCollegeNames.has(collegeName) ||
+            reason.includes(searchLower) ||
+            checkInStr.includes(searchLower) ||
+            dateStr.includes(searchLower)
+          );
         });
       }
 
       const formattedLogs = logs.map(log => ({
         id: log.visitorId?._id || log._id,
         email: log.visitorId?.email || 'Unknown',
+        studentNumber: log.studentNumber || log.visitorId?.studentNumber || 'N/A',
         firstName: log.visitorId?.firstName || 'Unknown',
         lastName: log.visitorId?.lastName || 'User',
         checkInTime: log.checkInTime,

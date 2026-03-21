@@ -1,12 +1,12 @@
 /**
  * Visitor Logs Component
- * Display list of visitors who have checked in
+ * Display list of visitors who have logged in
  */
 
 import React, { useState, useEffect } from 'react';
 import './VisitorLogs.css';
 
-const VisitorLogs = ({ user, onLogout }) => {
+const VisitorLogs = ({ user, onLogout, onEditProfile }) => {
   const [visitors, setVisitors] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
@@ -38,13 +38,17 @@ const VisitorLogs = ({ user, onLogout }) => {
     }
   };
 
-  const formatTime = (dateString) => {
+  const formatDateTime = (dateString) => {
     try {
       const date = new Date(dateString);
-      return date.toLocaleTimeString('en-US', { 
-        hour: '2-digit', 
+      return date.toLocaleString('en-US', {
+        year: 'numeric',
+        month: 'short',
+        day: '2-digit',
+        hour: '2-digit',
         minute: '2-digit',
-        hour12: true 
+        hour12: true,
+        timeZone: 'Asia/Manila',
       });
     } catch {
       return 'N/A';
@@ -57,11 +61,11 @@ const VisitorLogs = ({ user, onLogout }) => {
       <header className="logs-header">
         <div className="header-content">
           <div className="header-title">
-            <h1>📚 NEU Library</h1>
-            <p>Welcome to the NEU Library!</p>
+            <h1>NEU Library Log</h1>
+            <p>Visitor Log-In Records</p>
           </div>
           <button className="btn-logout" onClick={onLogout}>
-            🚪 Logout
+            Logout
           </button>
         </div>
       </header>
@@ -72,16 +76,17 @@ const VisitorLogs = ({ user, onLogout }) => {
           <span className="info-label">Logged in as:</span>
           <span className="user-email">{user.email}</span>
         </div>
-        <div className="checkin-info">
-          <span className="info-label">Reason for visit:</span>
-          <span className="visit-reason">{user.visitReason}</span>
-        </div>
+        {onEditProfile && (
+          <button className="btn-edit-profile" onClick={onEditProfile}>
+            Edit Profile
+          </button>
+        )}
       </div>
 
       {/* Filter Section */}
       <div className="filter-section">
         <div className="filter-container">
-          <label htmlFor="date-filter">📅 Filter by Date:</label>
+          <label htmlFor="date-filter">Filter by Date:</label>
           <input
             id="date-filter"
             type="date"
@@ -94,7 +99,7 @@ const VisitorLogs = ({ user, onLogout }) => {
 
       {/* Visitor Logs */}
       <div className="logs-content">
-        <h2>Visitor Check-In Logs</h2>
+        <h2>Visitor Log-In Logs</h2>
 
         {error && <div className="error-message">{error}</div>}
 
@@ -110,24 +115,26 @@ const VisitorLogs = ({ user, onLogout }) => {
               <thead>
                 <tr>
                   <th>Email</th>
-                  <th>Name</th>
+                  <th>Student Number</th>
+                  <th>Full Name</th>
                   <th>College</th>
-                  <th>Check-In Time</th>
-                  <th>Reason for Visit</th>
+                  <th>Reason</th>
+                  <th>Date & Time</th>
                 </tr>
               </thead>
               <tbody>
                 {visitors.map((visitor, index) => (
                   <tr key={index} className={index % 2 === 0 ? 'even' : 'odd'}>
                     <td className="email-cell">{visitor.email}</td>
+                    <td className="studentnum-cell">{visitor.studentNumber || 'N/A'}</td>
                     <td className="name-cell">
                       {visitor.firstName} {visitor.lastName}
                     </td>
-                    <td className="college-cell">{visitor.college}</td>
+                    <td className={`college-cell${visitor.college === 'Staff/Faculty' ? ' staff-faculty' : ''}`}>{visitor.college}</td>
+                    <td className={`reason-cell${visitor.visitPurpose === 'Staff/Faculty' ? ' staff-faculty' : ''}`}>{visitor.visitPurpose}</td>
                     <td className="time-cell">
-                      {formatTime(visitor.checkInTime)}
+                      {formatDateTime(visitor.checkInTime)}
                     </td>
-                    <td className="reason-cell">{visitor.visitPurpose}</td>
                   </tr>
                 ))}
               </tbody>

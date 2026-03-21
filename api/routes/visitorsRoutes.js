@@ -109,6 +109,7 @@ export const createVisitorRoutes = (models) => {
       const visitLog = await VisitLog.create({
         visitorId: visitor._id,
         email: visitor.email,
+        studentNumber: visitor.studentNumber,
         firstName: visitor.firstName,
         lastName: visitor.lastName,
         checkInTime: now,

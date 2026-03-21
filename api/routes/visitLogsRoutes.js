@@ -52,6 +52,7 @@ export const createVisitLogsRoutes = (models) => {
       const formattedLogs = logs.map(log => ({
         id: log._id,
         email: log.visitorId?.email || 'Unknown',
+        studentNumber: log.studentNumber || 'N/A',
         firstName: log.visitorId?.firstName || 'Unknown',
         lastName: log.visitorId?.lastName || 'User',
         checkInTime: log.checkInTime,
