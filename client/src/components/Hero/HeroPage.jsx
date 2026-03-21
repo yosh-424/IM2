@@ -38,8 +38,7 @@ const HeroPage = ({ onEnter, showLogin, children }) => {
         </div>
 
         <div className={`hero-main ${showLogin ? 'hero-main-hidden' : ''}`}>
-          <h1 className="hero-welcome">Welcome</h1>
-          <p className="hero-title">NEU Library Log</p>
+          <h1 className="hero-welcome">Welcome to NEU Library!</h1>
           <p className="hero-subtitle">New Era University Library Visitor Log</p>
 
           <button className="hero-enter-btn" onClick={onEnter}>
