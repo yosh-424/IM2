@@ -9,12 +9,16 @@ A web application to track and manage library visitors, monitor visitor statisti
 - **Search & Filter** - Find visitors by email, name, or college
 - **Admin Panel** - Manage visitor records and access permissions
 - **Visitor Access** - Check personal visit history
+- **Google OAuth Sign-In** - Authenticate with Google using NEU institutional email
+- **Visitor Blocking** - Block or unblock visitors with reason tracking
+- **Real-Time Clock** - Live UTC+8 clock display on the hero page
 
 ## Tech Stack
 
 - **Frontend**: React + Vite
 - **Backend**: Node.js + Express
 - **Database**: MongoDB
+- **Authentication**: Google OAuth 2.0
 - **Deployment**: Vercel (Full-Stack)
 
 ## Accessing the System
@@ -22,14 +26,9 @@ A web application to track and manage library visitors, monitor visitor statisti
 - Production Deployment: https://im-2-tau.vercel.app
 - Development: http://localhost:5000
 
-## Default Admin Credentials (For Testing Purposes)
-
-- Admin Email: `<Professor Esperanza's Instituional Email>` or `<Joshua Tindoy's Institutional Email>`
-- Admin Password: `0000`
-
 ## Security
 
 - NEU institutional email validation (@neu.edu.ph)
-- Role-based access control (Visitor/Admin)
-- Password-protected admin panel
+- Role-based access control (Visitor/Staff/Admin)
+- Google token verification on the server
 - Block/unblock functionality for access control
