@@ -24,7 +24,6 @@ A web application to track and manage library visitors, monitor visitor statisti
 ## Accessing the System
 
 - Production Deployment: https://im-2-tau.vercel.app
-- Development: http://localhost:5000
 
 ## Security
 
